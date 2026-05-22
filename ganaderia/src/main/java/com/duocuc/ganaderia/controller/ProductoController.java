@@ -52,7 +52,20 @@ public class ProductoController {
         return ResponseEntity.noContent().build();
     }
    
-    
+    @GetMapping("/buscar")
+    public ResponseEntity<List<Producto>> buscarPorNombre(@RequestParam String nombre){
+        return ResponseEntity.ok(productoService.buscarPorNombre(nombre));
+    }
+
+    @GetMapping("/buscar-empieza")
+    public ResponseEntity<List<Producto>> buscarPorNombreQueEmpieceCon(@RequestParam String prefijo){
+        return ResponseEntity.ok(productoService.uscarPorNombreQueEmpieceCon(prefijo));
+    }
+
+    @GetMapping("/buscar-termina")
+    public ResponseEntity<List<Producto>> buscarPorNombreQueTermineCon(@RequestParam String sufijo){
+        return Responseentity.ok(productoService.buscarPorNombrreQueTermineCon(sufijo));
+    }
     
     
     

@@ -52,4 +52,14 @@ public class ProductoService {
         return mapToDto(productoRepository.save(e)); 
     }
 
+    public List<Producto> buscarPorNombre(String texto){
+        return productoRepository.buscarPorNombreContieneIgnoreCase(texto);
+    }
+    public List<Producto> buscarPorNombreQueEmpieceCon (String prefijo){
+        return productoRepository.buscarPorNmbreEmpiezaConIgnoreCase(prefijo);
+    }
+    public List<Producto> buscarPorNombreQueTermineCon( String sufijo){
+        return productoRepository.buscarPorNombreTerminaConIgnoreCase(sufijo);
+    }
+
 }
