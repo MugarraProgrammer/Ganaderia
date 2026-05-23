@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.duocuc.ganaderia.dto.ProductoResponseDTO;
+import com.duocuc.ganaderia.model.Producto;
 import com.duocuc.ganaderia.service.ProductoService;
 
 import lombok.RequiredArgsConstructor;
@@ -64,9 +65,25 @@ public class ProductoController {
 
     @GetMapping("/buscar-termina")
     public ResponseEntity<List<Producto>> buscarPorNombreQueTermineCon(@RequestParam String sufijo){
-        return Responseentity.ok(productoService.buscarPorNombrreQueTermineCon(sufijo));
+        return ResponseEntity.ok(productoService.buscarPorNombrreQueTermineCon(sufijo));
+    }
+
+    @GetMapping("/buscar-menor")
+    public ResponseEntity<List<Producto>> buscarPorPrecioMenor(@RequestParam BigDecimal max){
+        return ResponseEntity.ok(productoService.buscarPorPrecioMenorQue(max));
+
     }
     
+    @GetMapping("/buscar-minimo")
+    public ResponseEntity<List<Producto>> buscarPorPrecioMinimo(@RequestParam BigDecimal min){
+        return ResponseEntity.ok(productoService.buscarPorPrecioMinimo(min));
+
+    }
+    @GetMapping("/buscar-entre")
+    public ResponseEntity<List<Producto>> buscarPorPrecioEntre(@RequestParam BigDecimal min, @RequestParam BigDecimal max){
+        return ResponseEntity.ok(productoService.buscarPorPrecioEntre(min, max));
+
+    }
     
     
     

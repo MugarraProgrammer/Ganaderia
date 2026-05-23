@@ -1,5 +1,6 @@
 package com.duocuc.ganaderia.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -61,5 +62,17 @@ public class ProductoService {
     public List<Producto> buscarPorNombreQueTermineCon( String sufijo){
         return productoRepository.buscarPorNombreTerminaConIgnoreCase(sufijo);
     }
+    public List<Producto> buscarPorPrecioMenor(BigDecimal precioMax){
+        return productoRepository.buscarPorPrecioMenorQue(precioMax);
+    }
+    public List<Producto> buscarPorPrecioMinimo(BigDecimal precioMin){
+        return productoRepository.buscarPorPrecioMayorOIgual(precioMin);
+    }
+    public List<Producto> buscarPorPrecioEntre(BigDecimal Min, BigDecimal Max){
+        return productoRepository.buscarPorPrecioEntre(Min, Max);
+    }
+
+
+
 
 }
