@@ -72,7 +72,14 @@ public class ProductoService {
         return productoRepository.buscarPorPrecioEntre(Min, Max);
     }
 
+    public List<Producto> uscarPorCategoria(Long categoriaId){
+        return productoRepository.buscarPorCategoriaId(categoriaId);
+    }
 
+    public List<Producto> buscarBajoPresupuesto(BigDecimal precioMax){
+        return productoRepository.buscarProductosBajoPresupuesto(precioMax);
+    }
+    
 
 
 }
