@@ -7,6 +7,7 @@ import java.util.List;
 
 import  org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 public interface ProductoRepository extends JpaRepository<Producto, Long>{
 
@@ -33,5 +34,8 @@ public interface ProductoRepository extends JpaRepository<Producto, Long>{
 
     @Query("SELECT p FROM Producto p WHERE p.precio <= :precioMax ORDER BY p.precio DESC")
     List<Producto> buscarProductosBajoPresupuesto(@Param("precioMax") BigDecimal precioMax);
+    
+    @Query(value = "SELECT * FROM producto_carnes WHERE nombre LIKE CONCAT('%', :texto, '%')", nativeQuery = true)
+    List<Producto> buscarPorNombreNativo(@Param("texto") String texto);
     
 }   

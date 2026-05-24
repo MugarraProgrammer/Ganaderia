@@ -84,6 +84,11 @@ public class ProductoController {
         return ResponseEntity.ok(productoService.buscarPorPrecioEntre(min, max));
 
     }
+
+    @GetMapping("/buscar-sql") public ResponseEntity<List<Producto>> buscarNativo(@RequestParam String texto){
+        return ResponseEntity.ok(productoService.buscarPorNombreNativo(texto));
+    }
+    
     
     
     

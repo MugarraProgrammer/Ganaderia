@@ -80,6 +80,10 @@ public class ProductoService {
         return productoRepository.buscarProductosBajoPresupuesto(precioMax);
     }
     
+    public List<Producto> buscarPorNombreNativo(String texto){
+        return productoRepository.buscarPorNombreNativo(texto);
+    }
+    
 
 
 }
