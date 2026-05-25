@@ -21,7 +21,7 @@ public class ProductoRequestDTO {
     private String marca;
     private String presentacion;
     private String notas;
-    private LocalDate fechaVencimiento; // ⬅️ Tu variable original intacta
+    private LocalDate fechaVencimiento; 
     
     @NotNull(message = "La categoría no puede ser nula")
     private Long categoriaId;
