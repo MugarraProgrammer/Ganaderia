@@ -1,25 +1,28 @@
 package com.duocuc.ganaderia.dto;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import jakarta.validation.constraints.*;
-import lombok.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import lombok.Data;
 
-
-@Data 
-@NoArgsConstructor
-@AllArgsConstructor
-
+@Data
 public class ProductoRequestDTO {
-
-    // Campos del DTO de solicitud
-    @notblank private String nombre;
-    @notblank private String codigo;
-    @notnull @Positive @Digits(integer = 10, fraction = 0) private BigDecimal precio;
+    
+    @NotBlank(message = "El nombre no puede estar vacío")
+    private String nombre;
+    
+    @NotBlank(message = "El código no puede estar vacío")
+    private String codigo;
+    
+    @NotNull(message = "El precio no puede ser nulo")
+    private BigDecimal precio;
+    
     private String marca;
     private String presentacion;
     private String notas;
-    @notnull private LocalDate fechaVencimiento;
-    @notnull private Long categoriaId;
-
-
+    private LocalDate fechaVencimiento; // ⬅️ Tu variable original intacta
+    
+    @NotNull(message = "La categoría no puede ser nula")
+    private Long categoriaId;
 }

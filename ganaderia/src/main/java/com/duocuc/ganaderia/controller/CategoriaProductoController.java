@@ -13,6 +13,8 @@ import com.duocuc.ganaderia.model.CategoriaProducto;
 import com.duocuc.ganaderia.service.CategoriaProductoService;
 
 import lombok.RequiredArgsConstructor;
+import jakarta.validation.Valid;
+
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -20,7 +22,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 
 
-@RestController @RequestMapping("/api/categorias")
+@RestController 
+@RequestMapping("/api/categorias")
 @RequiredArgsConstructor
 
 public class CategoriaProductoController {
@@ -37,11 +40,11 @@ public class CategoriaProductoController {
         return ResponseEntity.ok(categoriaService.buscarPorNombre(nombre).map(List::of).orElse(List.of()));
     }
     @PostMapping
-    public ResponseEntity<CategoriaProducto> crear(@Valid @ResquestBody CategoriaProducto c) {
+    public ResponseEntity<CategoriaProducto> crear(@Valid @RequestBody CategoriaProducto c) {
         return ResponseEntity.status(201).body(categoriaService.guardar(c)); 
     }
     @PutMapping("/{id}")
-    public ResponseEntity<CategoriaProducto> actualizar(@PathValeria Long id, @Valid @RequestBody CategoriaProducto d){
+    public ResponseEntity<CategoriaProducto> actualizar(@PathVariable Long id, @Valid @RequestBody CategoriaProducto d){
         return categoriaService.obtenerPorId(id).map(x -> { d.setId(id); return ResponseEntity.ok(categoriaService.guardar(d));}).orElse(ResponseEntity.notFound().build());
     }
     @DeleteMapping("/{id}")

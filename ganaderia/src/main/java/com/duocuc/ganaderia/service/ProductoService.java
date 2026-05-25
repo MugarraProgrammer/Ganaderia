@@ -57,7 +57,7 @@ public class ProductoService {
         return productoRepository.buscarPorNombreContieneIgnoreCase(texto);
     }
     public List<Producto> buscarPorNombreQueEmpieceCon (String prefijo){
-        return productoRepository.buscarPorNmbreEmpiezaConIgnoreCase(prefijo);
+        return productoRepository.buscarPorNombreEmpiezaConIgnoreCase(prefijo);
     }
     public List<Producto> buscarPorNombreQueTermineCon( String sufijo){
         return productoRepository.buscarPorNombreTerminaConIgnoreCase(sufijo);

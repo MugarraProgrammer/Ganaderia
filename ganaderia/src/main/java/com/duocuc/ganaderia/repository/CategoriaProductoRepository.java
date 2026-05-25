@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface CategoriaProductoRepository extends JpaRepository<CategoriaProducto, Long>{
 
-    @Query("SELECT C FROM CategoriaProducto C WHERE UPPER(c.nombre) = UPPER(:nombre)")
+    @Query("SELECT c FROM CategoriaProducto c WHERE UPPER(c.nombre) = UPPER(:nombre)")
     Optional<CategoriaProducto> buscarPorNombreIgualIgnoreCase(String nombre);
 }

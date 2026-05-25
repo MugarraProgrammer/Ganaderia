@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
 import com.duocuc.ganaderia.model.CategoriaProducto;
+import com.duocuc.ganaderia.repository.CategoriaProductoRepository;
 import lombok.RequiredArgsConstructor;
 
 @Service
