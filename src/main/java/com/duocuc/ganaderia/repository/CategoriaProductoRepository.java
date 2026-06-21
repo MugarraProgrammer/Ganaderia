@@ -3,9 +3,10 @@ import java.util.Optional;
 import com.duocuc.ganaderia.model.CategoriaProducto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 public interface CategoriaProductoRepository extends JpaRepository<CategoriaProducto, Long>{
 
     @Query("SELECT c FROM CategoriaProducto c WHERE UPPER(c.nombre) = UPPER(:nombre)")
-    Optional<CategoriaProducto> buscarPorNombreIgualIgnoreCase(String nombre);
+    Optional<CategoriaProducto> buscarPorNombreIgualIgnoreCase(@Param("nombre") String nombre);
 }

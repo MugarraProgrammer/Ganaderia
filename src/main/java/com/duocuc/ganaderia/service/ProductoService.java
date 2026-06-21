@@ -25,7 +25,7 @@ public class ProductoService {
     private final ProductoRepository productoRepository;
     private final CategoriaProductoRepository categoriaRepository;
 
-    private ProductoResponseDTO  mapToDto(Producto p) {
+    private ProductoResponseDTO mapToDto(Producto p) {
         return new ProductoResponseDTO(p.getId(), p.getNombre(), p.getCodigo(), p.getPrecio(), p.getMarca(), p.getPresentacion(), p.getNotas(), p.getFechaVencimiento(), p.getCategoria().getNombre());
     }
     public List<ProductoResponseDTO> obtenerTodos() {
@@ -72,7 +72,7 @@ public class ProductoService {
         return productoRepository.buscarPorPrecioEntre(Min, Max);
     }
 
-    public List<Producto> uscarPorCategoria(Long categoriaId){
+    public List<Producto> buscarPorCategoria(Long categoriaId){
         return productoRepository.buscarPorCategoriaId(categoriaId);
     }
 
