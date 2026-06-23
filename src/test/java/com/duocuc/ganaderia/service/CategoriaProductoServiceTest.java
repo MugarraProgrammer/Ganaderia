@@ -1,10 +1,8 @@
-
 package com.duocuc.ganaderia.service;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.Mockito.Mockito.*;
+import static org.mockito.Mockito.*;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -81,7 +79,7 @@ class CategoriaProductoServiceTest {
     void guardarCategoriaExitosamente() {
         CategoriaProducto nueva = new CategoriaProducto(null, "Porcino", "Cortes de cerdo");
         CategoriaProducto guardada = new CategoriaProducto(2L, "Porcino", "Cortes de cerdo");
-        
+
         when(categoriaProductoRepository.save(nueva)).thenReturn(guardada);
 
         var resultado = categoriaProductoService.guardar(nueva);

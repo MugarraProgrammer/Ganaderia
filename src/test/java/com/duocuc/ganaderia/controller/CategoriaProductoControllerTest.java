@@ -5,7 +5,6 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -73,7 +72,7 @@ class CategoriaProductoControllerTest {
 
         mockMvc.perform(get("/api/categorias/buscar").param("nombre", "Vacuno"))
             .andExpect(status().isOk())
-            .andExpect(jsonPath("$.nombre").value("Vacuno"));
+            .andExpect(jsonPath("$[0].nombre").value("Vacuno"));
     }
 
     @Test
@@ -90,14 +89,54 @@ class CategoriaProductoControllerTest {
                     "descripcion": "Cortes"
                 }
                 """))
-            .andExpect(status().isCreated());
+            .andExpect(status().isCreated())
+            .andExpect(jsonPath("$.nombre").value("Vacuno"));
+    }
+
+    @Test
+    void actualizarDevuelve200() throws Exception {
+        when(categoriaProductoService.obtenerPorId(1L))
+            .thenReturn(Optional.of(new CategoriaProducto(1L, "Vacuno", "Cortes")));
+        when(categoriaProductoService.guardar(any())).thenReturn(
+            new CategoriaProducto(1L, "Vacuno", "Cortes actualizados")
+        );
+
+        mockMvc.perform(put("/api/categorias/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("""
+                {
+                    "nombre": "Vacuno",
+                    "descripcion": "Cortes actualizados"
+                }
+                """))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.descripcion").value("Cortes actualizados"));
+    }
+
+    @Test
+    void actualizarDevuelve404SiNoExiste() throws Exception {
+        when(categoriaProductoService.obtenerPorId(1L)).thenReturn(Optional.empty());
+
+        mockMvc.perform(put("/api/categorias/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("""
+                {
+                    "nombre": "Vacuno",
+                    "descripcion": "Cortes"
+                }
+                """))
+            .andExpect(status().isNotFound());
     }
 
     @Test
     void eliminarDevuelve204() throws Exception {
+        when(categoriaProductoService.obtenerPorId(1L))
+            .thenReturn(Optional.of(new CategoriaProducto(1L, "Vacuno", "Cortes")));
         doNothing().when(categoriaProductoService).eliminar(1L);
 
         mockMvc.perform(delete("/api/categorias/1"))
             .andExpect(status().isNoContent());
+
+        verify(categoriaProductoService).eliminar(1L);
     }
 }
