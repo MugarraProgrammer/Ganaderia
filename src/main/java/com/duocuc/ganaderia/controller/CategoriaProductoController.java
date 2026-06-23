@@ -2,6 +2,7 @@ package com.duocuc.ganaderia.controller;
 
 import java.util.List;
 
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +20,8 @@ import com.duocuc.ganaderia.service.CategoriaProductoService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
@@ -37,6 +40,10 @@ public class CategoriaProductoController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Obtener una categoria por id")
+    @ApiResponses({
+        @ApiResponse(responseCode = "200", description = "Categoría encontrada"),
+        @ApiResponse(responseCode = "404", description = "Categoría no encontrada")
+    })
     public ResponseEntity<CategoriaProducto> obtenerPorId(@PathVariable Long id) {
         return categoriaService.obtenerPorId(id).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
@@ -49,6 +56,10 @@ public class CategoriaProductoController {
 
     @PostMapping
     @Operation(summary = "Crear una categoria")
+    @ApiResponses({
+        @ApiResponse(responseCode = "201", description = "Categoría creada"),
+        @ApiResponse(responseCode = "400", description = "Datos inválidos")
+    })
     public ResponseEntity<CategoriaProducto> crear(@Valid @RequestBody CategoriaProducto c) {
         return ResponseEntity.status(201).body(categoriaService.guardar(c));
     }

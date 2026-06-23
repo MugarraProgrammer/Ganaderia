@@ -1,5 +1,8 @@
 package com.duocuc.ganaderia.controller;
 
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+
 import java.util.List;
 import java.math.BigDecimal;
 
@@ -40,12 +43,20 @@ public class ProductoController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Obtener un producto por id")
+    @ApiResponses({
+        @ApiResponse(responseCode = "200", description = "Producto encontrado"),
+        @ApiResponse(responseCode = "404", description = "Producto no encontrado")
+    })
     public ResponseEntity<ProductoResponseDTO> obtenerPorId(@PathVariable Long id) {
         return productoService.obtenerPorId(id).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
     @Operation(summary = "Crear un producto")
+    @ApiResponses({
+        @ApiResponse(responseCode = "201", description = "Producto creado"),
+        @ApiResponse(responseCode = "400", description = "Datos inválidos o la categoría no existe")
+    })
     public ResponseEntity<ProductoResponseDTO> crear(@Valid @RequestBody ProductoRequestDTO p) {
         return ResponseEntity.status(201).body(productoService.guardar(p)); 
     }
@@ -67,6 +78,10 @@ public class ProductoController {
    
     @GetMapping("/buscar")
     @Operation(summary = "Buscar productos por nombre")
+    @ApiResponses({
+        @ApiResponse(responseCode = "200", description = "Búsqueda realizada correctamente"),
+        @ApiResponse(responseCode = "404", description = "No se encontraron productos")
+    })
     public ResponseEntity<List<Producto>> buscarPorNombre(@RequestParam String nombre){
         return ResponseEntity.ok(productoService.buscarPorNombre(nombre));
     }
