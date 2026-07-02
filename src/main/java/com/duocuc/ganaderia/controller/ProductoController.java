@@ -6,6 +6,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import java.util.List;
 import java.math.BigDecimal;
 
+import java.net.URI;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -121,4 +123,11 @@ public class ProductoController {
     public ResponseEntity<List<Producto>> buscarNativo(@RequestParam String texto){
         return ResponseEntity.ok(productoService.buscarPorNombreNativo(texto));
     }
+
+    @GetMapping("/")
+public ResponseEntity<Void> inicio() {
+    return ResponseEntity.status(302)
+            .location(URI.create("/swagger-ui/index.html"))
+            .build();
+}
 }
